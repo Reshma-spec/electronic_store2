@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Slideshow Banner</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .hero-banner {
+      position: relative;
+      min-height: 500px;
+      max-height: 700px;
+      background-attachment: fixed;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .slideshow-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+    }
+
+    .slide.active {
+      opacity: 1;
+    }
+
+    .hero-banner h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-banner p {
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+
+    .slideshow-controls {
+      position: absolute;
+      bottom: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      z-index: 2;
+    }
+
+    .slideshow-dot {
+      width: 12px;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      margin: 0 8px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .slideshow-dot.active {
+      background: #817773;
+      transform: scale(1.2);
+    }
+
+    .slideshow-arrow {
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 10px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .slideshow-arrow.left {
+      left: 20px;
+    }
+
+    .slideshow-arrow.right {
+      right: 20px;
+    }
+
+    .slideshow-arrow:hover {
+      background: #817773;
+      transform: translateY(-50%) scale(1.1);
+    }
+  </style>
+</head>
+<body>
+  <header class="hero-banner">
+    <div class="slideshow-container">
+      <div class="slide active" style="background-image: url('https://m-cdn.phonearena.com/images/article/64576-wide-two_1200/The-Best-Phones-Our-top-tested-picks.jpg');"></div>
+      <div class="slide" style="background-image: url('https://www.teltarif.de/img/arch/2024/kw48/smartphones-2025-ausblick-samsung-apple-1og.jpg');"></div>
+      <div class="slide" style="background-image: url('https://c4.wallpaperflare.com/wallpaper/535/789/206/new-smartphones-wallpaper-preview.jpg');"></div>
+    </div>
+    <h1>ELECTRO WORLS</h1>
+    <p>Technology works best when handled with care</p>
+    <div class="slideshow-controls">
+      <button class="slideshow-arrow left" ELECTRO WORLD="Previous slide">←</button>
+      <div class="slideshow-dot active" data-slide="0"></div>
+      <div class="slideshow-dot" data-slide="1"></div>
+      <div class="slideshow-dot" data-slide="2"></div>
+      <button class="slideshow-arrow right" aria-label="Next slide">→</button>
+    </div>
+  </header>
+
+  <script>
+    const slides = document.querySelectorAll(".slide");
+    const dots = document.querySelectorAll(".slideshow-dot");
+    const leftArrow = document.querySelector(".slideshow-arrow.left");
+    const rightArrow = document.querySelector(".slideshow-arrow.right");
+    let currentSlide = 0;
+    let intervalId;
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle("active", i === index);
+        dots[i].classList.toggle("active", i === index);
+      });
+      currentSlide = index;
+    }
+
+    function nextSlide() {
+      showSlide((currentSlide + 1) % slides.length);
+    }
+
+    function prevSlide() {
+      showSlide((currentSlide - 1 + slides.length) % slides.length);
+    }
+
+    function startAutoSlide() {
+      intervalId = setInterval(nextSlide, 5000); // Change every 5 seconds
+    }
+
+    function stopAutoSlide() {
+      clearInterval(intervalId);
+    }
+
+    // Dot controls
+    dots.forEach(dot => {
+      dot.addEventListener("click", () => {
+        stopAutoSlide();
+        const index = parseInt(dot.getAttribute("data-slide"));
+        showSlide(index);
+        startAutoSlide();
+      });
+    });
+
+    // Arrows
+    rightArrow.addEventListener("click", () => {
+      stopAutoSlide();
+      nextSlide();
+      startAutoSlide();
+    });
+
+    leftArrow.addEventListener("click", () => {
+      stopAutoSlide();
+      prevSlide();
+      startAutoSlide();
+    });
+
+    // Start auto
+    startAutoSlide();
+  </script>
+  <title>Flipkart</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .header-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 50px;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 20px;
+    }
+    .header-container img {
+      width: 300px;
+      height: 270px;
+    }
+    .header-title {
+      font-size: 60px;
+      color: blue;
+    }
+    .products-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 60px;
+    }
+    .product {
+      width: 300px;
+      background-color: #fafafa;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .product img {
+      width: 100%;
+      height: 320px;
+      border-radius: 8px;
+    }
+    .product h1 {
+      font-size: 20px;
+      margin: 10px 0 5px;
+    }
+    .product h2 {
+      font-size: 18px;
+      margin: 5px 0 10px;
+    }
+    .product button {
+      background-color: red;
+      color: white;
+      font-size: 18px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: o 4px 6px rgba(0,0,0,0.2);
+      trasition:background-color 0.3s ease,transform 0.3s ease,box-shadow 0.3s ease;
+    }
+    .product button:hover{
+      background-color:blue;
+      text-color:black;
+      transform:scale(1.05);
+      box-shadow: (0 6px 12px rgba90,0,0,0.3); 
+    }
+    .product img {
+      width: 100%;
+     height: 320px;
+     border-radius: 8px;
+     object-fit: cover;
+     transition: transform 0.4s ease; 
+    }
+    .product img:hover {
+      transform: scale(1.2);
+      z-index: 1;
+    }
+    .product {
+      overflow: hidden;
+      position: relative;
+}
+
+    
+    
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="products-container">
+    <div class="product">
+      <img src="https://static2.realme.net/images/realme-12-pro-plus/point/2.jpg" alt="REALME 12 PRO">
+      <h1>REALME 12 PRO</h1>
+      <h2>Price — 15,000</h2>
+      <button>ORDER</button>
+    </div>
+
+    <div class="product">
+      <img src="https://vsprod.vijaysales.com/media/catalog/product/s/a/samsung-galaxy-s24-ultra-titanium-whitesilver_1_.jpg?optimize=medium&fit=bounds&height=500&width=500" alt="GALAXY S24">
+      <h1>GALAXY S24</h1>
+      <h2>Price — 80,000</h2>
+      <button>ORDER</button>
+    </div>
+
+    <div class="product">
+      <img src="https://m.media-amazon.com/images/I/51f4A6Tr8zL.jpg" alt="google G200">
+      <h1>google G200</h1>
+      <h2>Price — 10,000</h2>
+      <button>ORDER</button>
+    </div>
+
+    <div class="product">
+      <img src="https://cdn.idropnews.com/wp-content/uploads/2022/04/06102838/iPhone-Fold-Concept.jpg" alt="IPHONE">
+      <h1>IPHONE</h1>
+      <h2>Price — 90,000</h2>
+      <button>ORDER</button>
+    </div>
+
+    <div class="product">
+      <img src="https://m.media-amazon.com/images/I/714GaXJHGGL._UF1000,1000_QL80_.jpg" alt="REDMI">
+      <h1>REDMI</h1>
+      <h2>Price — 25,000</h2>
+      <button>ORDER</button>
+    </div>
+
+    <div class="product">
+      <img src="https://rukminim2.flixcart.com/image/850/1000/xif0q/mobile/p/g/i/12-cph2573-oneplus-original-imahyzy8wvsewgxx.jpeg?q=90&crop=false" alt="'one plus">
+      <h1>one plus</h1>
+      <h2>Price — 10,000</h2>
+      <button>ORDER</button>
+    </div>
+
+     <div class="product">
+      <img src="https://rukminim2.flixcart.com/image/704/844/xif0q/mobile/k/g/r/-original-imagzcfjsdxtrnnz.jpeg?q=90&crop=false" alt="poco">
+      <h1>poco</h1>
+      <h2>Price — 13,000</h2>
+      <button>ORDER</button>
+     </div>
+
+    <div class="product">
+      <img src="https://images-cdn.ubuy.co.in/66a03ecae2b9ee2be9765acd-motorola-moto-g-5g-2022-2-day.jpg" alt="moto">
+      <h1>moto m2 reloaded</h1>
+      <h2>Price — 13,000</h2>
+      <button>ORDER</button>
+     </div>
+    
+     <div class="product">
+      <img src="https://rukminim2.flixcart.com/image/704/844/xif0q/mobile/x/j/d/11t-pro-5g-hyperphone-2107113si-xiaomi-original-imah27t2tsysjk6z.jpeg?q=90&crop=false" alt="xiaomi">
+      <h1>xiaomi</h1>
+      <h2>Price — 12,000</h2>
+      <button>ORDER</button>
+     </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
